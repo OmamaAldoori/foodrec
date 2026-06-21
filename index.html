@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoodRec — Akıllı Yemek Öneri Sistemi</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">🍽 FoodRec</div>
+  <div class="nav-links">
+    <a href="#app">Öneri</a>
+    <a href="#how">Nasıl Çalışır</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge"><span></span> Food.com verisi · 180K+ tarif</div>
+  <h1 class="hero-title">
+    Akıllı Yemek<br>
+    <span class="grad">Öneri Sistemi</span>
+  </h1>
+  <p class="hero-sub">
+    Sevdiğin malzemelere, öğün zamanına ve son günlerde ne yediğine göre
+    kişiselleştirilmiş tarifler önerir. Aynı yemeklerden sıkılmana izin vermez.
+  </p>
+  <a href="#app" class="btn-hero">Başla →</a>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">180K+</div><div class="lbl">Tarif</div></div>
+    <div class="hero-stat"><div class="num">700K+</div><div class="lbl">Kullanıcı değerlendirmesi</div></div>
+    <div class="hero-stat"><div class="num">CB + CF</div><div class="lbl">Hibrit model</div></div>
+    <div class="hero-stat"><div class="num">Dinamik</div><div class="lbl">Doygunluk filtresi</div></div>
+  </div>
+</section>
+
+<section id="app">
+  <div class="section-header">
+    <h2>Yemek Önerisi Al</h2>
+    <p>Tercihlerini seç, sistem sana en uygun tarifleri sıralasın</p>
+  </div>
+
+  <div class="app-layout">
+
+    <div class="sidebar">
+      <div class="sidebar-title">Tercihlerini Gir</div>
+
+      <!-- KULLANICI MODU -->
+      <div class="s-section">
+        <div class="s-label">&#128100; Kullanıcı Modu</div>
+<select id="user-select" class="user-select" title="Kullanıcı Modu Seçimi">
+              <option value="">&#128587; Misafir olarak devam et</option>
+        </select>
+        <p id="user-info" class="user-info-text"></p>
+      </div>
+
+      <div class="s-section">
+        <div class="s-label">🕐 Ne zaman yiyorsun?</div>
+        <div class="tag-grid" id="meal-tags">
+          <div class="tag t-meal">Breakfast</div>
+          <div class="tag t-meal ">Lunch</div>
+          <div class="tag t-meal">Dinner</div>
+          <div class="tag t-meal">Snack</div>
+        </div>
+      </div>
+     <div class="s-section">
+  <div class="s-label">🍂 Hangi mevsimdesiniz?</div>
+  <div class="tag-grid" id="season-tags">
+    <div class="tag t-season">Summer</div>
+    <div class="tag t-season">Winter</div>
+    <div class="tag t-season">Spring</div>
+    <div class="tag t-season">Autumn</div>
+  </div>
+</div>
+<div class="s-section">
+  <div class="s-label">⏱️ Maksimum Hazırlanma Süresi</div>
+  <div class="tag-grid" id="time-tags">
+    <div class="tag t-time on" data-value="999">Fark Etmez</div>
+    <div class="tag t-time" data-value="15">15 dk</div>
+    <div class="tag t-time" data-value="30">30 dk</div>
+    <div class="tag t-time" data-value="45">45 dk</div>
+    <div class="tag t-time" data-value="60">60 dk</div>
+  </div>
+</div>
+      <div class="s-section">
+        <div class="s-label">💚 Sevdiğin malzemeler</div>
+        <div class="tag-grid" id="like-tags">
+          <div class="tag t-like">chicken</div>
+          <div class="tag t-like">garlic</div>
+          <div class="tag t-like">tomato</div>
+          <div class="tag t-like">lemon</div>
+          <div class="tag t-like">olive oil</div>
+          <div class="tag t-like">cheese</div>
+          <div class="tag t-like">eggs</div>
+          <div class="tag t-like">salmon</div>
+          <div class="tag t-like">mushroom</div>
+          <div class="tag t-like">spinach</div>
+        </div>
+      </div>
+
+      <div class="s-section">
+        <div class="s-label">🚫 Sevmediğin malzemeler</div>
+        <div class="tag-grid" id="dis-tags">
+          <div class="tag t-dis">onion</div>
+          <div class="tag t-dis">mayo</div>
+          <div class="tag t-dis">cream</div>
+          <div class="tag t-dis">chili</div>
+          <div class="tag t-dis">anchovies</div>
+        </div>
+      </div>
+
+
+
+      <div class="s-section">
+        <div class="s-label">🔢 Kaç öneri?</div>
+        <div class="slider-row">
+          <span class="slider-bound">1</span>
+          <label for="topk" class="sr-only">Öneri Sayısı</label>
+          <input type="range" min="1" max="8" value="5" id="topk" title="Öneri Sayısı">
+          <span class="slider-bound">8</span>
+          <div class="slider-val" id="topk-v">5</div>
+        </div>
+      </div>
+
+      <div class="s-section" id="saturation-section">
+        <div class="s-label">📊 Malzeme Geçmişin</div>
+        <div id="history-panel"><p class="no-history">Henüz geçmiş yok.</p></div>
+        <button class="btn-clear" id="btn-clear-history">Geçmişi Sıfırla</button>
+      </div>
+      <button class="btn-go">Öneri Getir 🍳</button>
+    </div>
+
+    <div class="main-panel" id="main-panel">
+      <div class="welcome" id="welcome">
+        <div class="big">🍽️</div>
+        <h3>Hoşgeldiniz</h3>
+        <p>Sol panelden tercihlerinizi belirleyin ve <strong>Öneri Getir</strong> butonuna basın. Sistem size en uygun tarifleri sıralayacak.</p>
+      </div>
+      <div id="results" class="hidden"></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="section-header">
+    <h2>Nasıl Çalışır?</h2>
+    <p>Üç katmanlı hibrit model — içerik, işbirlikçi filtreleme ve doygunluk</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num num-purple">01</div>
+      <h4>İçerik Tabanlı Filtreleme</h4>
+      <p>Sevdiğin malzemeleri TF-IDF ile vektörleştirir, kosinüs benzerliğiyle en yakın tarifleri bulur.</p>
+      <div class="formula"><span class="c">// CB Skoru</span><br>SCB = cosine_sim(liked, recipe)</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num num-teal">02</div>
+      <h4>İşbirlikçi Filtreleme</h4>
+      <p>Sana benzer kullanıcıların beğendiği tarifleri item-based kNN ve SVD ile öğrenir.</p>
+      <div class="formula"><span class="c">// Hibrit Skor</span><br>Sbase = α·SCB + (1-α)·SCF</div>
+    </div>
+    <div class="how-card">
+      <div class="how-num num-amber">03</div>
+      <h4>Doygunluk Filtresi</h4>
+      <p>Kullanıcının son etkileşimlerinde çok yenilen malzemeleri tespit eder, ceza uygular. Çeşitlilik sağlar.</p>
+      <div class="formula"><span class="c">// Final Skor</span><br>Sfinal = Sbase·(1−Pscore)</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  FoodRec · Dinamik Doygunluk Temelli Hibrit Yemek Öneri Sistemi · Food.com Dataset
+</footer>
+<script src="app.js"></script>
+<script>
+  // Sunucu sağlık kontrolü — sayfa açılışında bir kez çalışır
+  (async () => {
+    try {
+      const res  = await fetch("http://127.0.0.1:5000/api/health");
+      const data = await res.json();
+      if (data.status !== "ok") {
+        const banner = document.createElement("div");
+        banner.style.cssText = "position:fixed;top:0;left:0;right:0;background:#fef3c7;color:#92400e;padding:10px 20px;text-align:center;font-size:.85rem;font-weight:600;z-index:10000;border-bottom:1px solid #fcd34d;";
+        banner.textContent = "⚠️ Sunucu verisi tam yüklenemedi — CSV dosyaları eksik olabilir. Öneriler sınırlı çalışacak.";
+        document.body.prepend(banner);
+      }
+    } catch {
+      const banner = document.createElement("div");
+      banner.style.cssText = "position:fixed;top:0;left:0;right:0;background:#fee2e2;color:#991b1b;padding:10px 20px;text-align:center;font-size:.85rem;font-weight:600;z-index:10000;border-bottom:1px solid #fca5a5;";
+      banner.textContent = "🔴 Sunucuya bağlanılamadı (localhost:5000). Flask uygulamasının çalıştığından emin olun.";
+      document.body.prepend(banner);
+    }
+  })();
+</script>
+</body>
+</html>
